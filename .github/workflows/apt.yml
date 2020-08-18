@@ -27,6 +27,7 @@ jobs:
           sudo apt update -qq
           sudo DEBIAN_FRONTEND=noninteractive apt install -y reprepro* rng-tools
           echo "::set-env name=WORKDIR_SH23::$(pwd)"
+          echo "$WORKDIR_SH23"
 
       - name: GPG key create
         uses: Sirherobrine23/ssh-connect-for-apt@main
