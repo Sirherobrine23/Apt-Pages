@@ -35,7 +35,7 @@ jobs:
       - name: import gpg keys
         if: env.LOCAL_KEY == 'true'
         run: |
-          gpg --passphrase "${{ secrets.PASSWORD }}" --import "$WORKDIR_SH23/keys/$PRIV_KEY"
+          gpg --passphrase "${{ secrets.PASSWORD }}" --no-tty --batch --yes --import "$WORKDIR_SH23/keys/$PRIV_KEY"
           echo "" 
           gpg --import "$WORKDIR_SH23/keys/$PUB_KEY"
           echo "default-key $KEY_ID" >> ~/.gnupg/gpg.conf
