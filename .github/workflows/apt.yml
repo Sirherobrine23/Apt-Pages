@@ -4,8 +4,6 @@ on:
     branches:
       - master
       - main
-    paths:
-      - '*.deb'
 
 env:
   DIST: sh23
