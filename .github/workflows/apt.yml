@@ -8,9 +8,7 @@ on:
 env:
   DIST: sh23
   MORE: --keepunusednewfiles
-  SSH: 'false'
   LOCAL_KEY: 'true'
-  PRIV_KEY: priv.key
   PUB_KEY: pub.key
   KEY_ID: 7E1D5D0188BFB69346C6332659CEA38B2E8E4EBE
 
@@ -33,13 +31,12 @@ jobs:
 
       - name: GPG key create
         uses: Sirherobrine23/ssh-connect-for-apt@main
-        if: env.SSH == 'true'
+        if: env.LOCAL_KEY == 'false'
 
       - name: import gpg keys
         if: env.LOCAL_KEY == 'true'
         run: |
           gpg --import "$WORKDIR_SH23/keys/$PUB_KEY"
-          gpg --allow-secret-key-import --import "$WORKDIR_SH23/keys/$PRIV_KEY"
           echo "default-key $KEY_ID" >> ~/.gnupg/gpg.conf
 
       - name: Reprepro
