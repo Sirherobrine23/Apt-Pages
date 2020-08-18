@@ -10,6 +10,7 @@ env:
   MORE: --keepunusednewfiles
   LOCAL_KEY: 'true'
   PUB_KEY: pub.key
+  PRIV_KEY: priv.key
   KEY_ID: 7E1D5D0188BFB69346C6332659CEA38B2E8E4EBE
 
 jobs:
@@ -37,6 +38,7 @@ jobs:
         if: env.LOCAL_KEY == 'true'
         run: |
           gpg --import "$WORKDIR_SH23/keys/$PUB_KEY"
+          gpg --quiet --yes --decrypt --passphrase ${{ secrets.PASSWORD }} --output "$WORKDIR_SH23/keys/$PRIV_KEY"
           echo "default-key $KEY_ID" >> ~/.gnupg/gpg.conf
 
       - name: Reprepro
