@@ -1,0 +1,72 @@
+name: APT REPO in Pages
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'wr941nd.config'
+  schedule:
+    - cron: 40 15,18 * * 2,4,6
+  watch:
+    types: started
+
+env:
+  DIST: sh23
+  MORE: --keepunusednewfiles
+  SSH: false
+  LOCAL_KEY: true
+  PRIV_KEY: priv.key
+  PUB_KEY: pub.key
+  PUB_KEY_ID: 
+
+jobs:
+  reprepro:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.1 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
+        # with:
+        #   persist-credentials: false
+
+      - name: Instalando depedencias
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run : |
+          sudo apt update && apt install -fy && apt install -y reprepro rng-tools
+          echo "::set-env name=WORKDIR_SH23::$(pwd)"
+
+      - name: GPG key create
+        uses: Sirherobrine23/ssh-connect-for-apt@main
+        if: env.SSH == 'true'
+
+      - name: import gpg keys
+        if: env.LOCAL_KEY == 'true'
+        run: |
+          gpg --import "$WORKDIR_SH23/keys/$PRIV_KEY"
+          gpg --import "$WORKDIR_SH23/keys/$PUB_KEY"
+          echo "default-key $PUB_KEY_ID" >> ~/.gnupg/gpg.conf
+
+      - name: Reprepro
+        run: |
+          reprepro $MORE --basedir "$WORKDIR_SH23/public" -C main includedeb $DIST package/main/*.deb
+          reprepro $MORE --basedir "$WORKDIR_SH23/public" -C contrib includedeb $DIST package/contrib/*.deb
+          reprepro $MORE --basedir "$WORKDIR_SH23/public" -C non-free includedeb $DIST package/non-free/*.deb
+          if [[ -e  $PUB_KEY ]];then
+          echo ""
+          else
+          gpg --armor --output "$WORKDIR_SH23/public/pub.key" --export $PUB_KEY_ID
+          fi
+
+
+      - name: removendo algumas pastas
+        run: |
+          cd public/
+          sudo rm -r db/
+          sudo rm -r conf/
+
+      - name: Deploy repository
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ env.WORKDIR_SH23 }}/public
