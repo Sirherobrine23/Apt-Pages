@@ -16,7 +16,7 @@ E temos um workflow para Gitlab e Github, dependendo de qual usarar terá uma es
 
 No Github basta clicar no 'Use this template' e modificar os seguintes arquivos:
 
-[Modifique o arquivo de distribuição para publicar os pacotes](/public/distributions)
+[Modifique o arquivo de distribuição para publicar os pacotes](/public/conf/distributions)
 
 [Modifique o Workflow para que possamos publicar os pacotes](/.github/workflows/apt.yml)
 
@@ -24,10 +24,10 @@ No Github basta clicar no 'Use this template' e modificar os seguintes arquivos:
 
 Importe o projeto com um dos links abaixo:
 
-[Meu Proprio servidor git](https://srherobrine23.com/sirherobrine23/Apt-repository-with-Gh-pages.git) - [Meu repositorio no Github](https://github.com/Sirherobrine23/Apt-repository-with-Gh-pages.git).
+[Meu Proprio servidor git (Gitlab)](https://srherobrine23.com/sirherobrine23/Apt-repository-with-Gh-pages.git) - [Meu repositorio no Github](https://github.com/Sirherobrine23/Apt-repository-with-Gh-pages.git).
 
 E modificar os seguintes arquivos:
 
-[Modifique o arquivo de distribuição para publicar os pacotes](/public/distributions)
+[Modifique o arquivo de distribuição para publicar os pacotes](/public/conf/distributions)
 
 [Modifique o Workflow para que possamos publicar os pacotes](/.github/workflows/apt.yml)
