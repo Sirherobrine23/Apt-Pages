@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2.3.1
-        
+
       - name: Install reprepro and OpenGPG
         run : |
           sudo apt update -qq
@@ -36,7 +36,7 @@ jobs:
         if: env.LOCAL_KEY == 'true'
         run: |
           gpg --import "$WORKDIR_SH23/keys/$PUB_KEY"
-          gpg --quiet --yes --decrypt --passphrase ${{ secrets.PASSWORD }} --output "$WORKDIR_SH23/keys/$PRIV_KEY"
+          gpg --quiet --yes --passphrase ${{ secrets.PASSWORD }} --output "$WORKDIR_SH23/keys/$PRIV_KEY"
           echo "default-key $KEY_ID" >> ~/.gnupg/gpg.conf
 
       - name: Reprepro
