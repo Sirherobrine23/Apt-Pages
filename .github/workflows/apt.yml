@@ -23,10 +23,9 @@ jobs:
         #   persist-credentials: false
 
       - name: Install reprepro and OpenGPG
-        env:
-          DEBIAN_FRONTEND: noninteractive
         run : |
-          sudo apt update -qq && apt install -qqfy && sudo apt install -yqq reprepro rng-tools
+          sudo apt update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt install -y reprepro* rng-tools
           echo "::set-env name=WORKDIR_SH23::$(pwd)"
 
       - name: GPG key create
