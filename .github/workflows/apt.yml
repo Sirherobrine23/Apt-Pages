@@ -35,6 +35,7 @@ jobs:
           gpg --passphrase "${{ secrets.PASSWORD }}" --no-tty --batch --yes --import "keys/$PRIV_KEY"
           echo "" 
           gpg --import "keys/$PUB_KEY"
+          gpg --export-secret-keys --export-secret-subkeys --passphrase "${{ secrets.PASSWORD }}" | gpg2 --import -
           echo "default-key $KEY_ID" >> ~/.gnupg/gpg.conf
           echo use-agent >> ~/.gnupg/gpg.conf
 
