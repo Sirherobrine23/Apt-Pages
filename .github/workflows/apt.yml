@@ -15,7 +15,7 @@ env:
 
 jobs:
   reprepro:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
       - name: Checkout
@@ -26,8 +26,7 @@ jobs:
           sudo apt update -qq
           sudo DEBIAN_FRONTEND=noninteractive apt install -y reprepro* rng-tools gpg*
           echo "::set-env name=WORKDIR_SH23::$(pwd)"
-          echo "$WORKDIR_SH23"
-
+          
       - name: GPG key create
         uses: Sirherobrine23/ssh-connect-for-apt@main
         if: env.LOCAL_KEY == 'false'
@@ -42,6 +41,7 @@ jobs:
 
       - name: list publish_dir
         run: |
+          echo "seu diretorio de trabalho é no: $WORKDIR_SH23"
           ls "$WORKDIR_SH23/package/main/*.deb"
           ls "$WORKDIR_SH23/package/contrib/*.deb"
           ls "$WORKDIR_SH23/package/non-free/*.deb"
