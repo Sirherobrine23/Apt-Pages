@@ -26,7 +26,7 @@ jobs:
       - name: Install reprepro and OpenGPG
         run : |
           apt update -qq
-          DEBIAN_FRONTEND=noninteractive apt install -y reprepro rng-tools gpg*
+          DEBIAN_FRONTEND=noninteractive apt install -y reprepro rng-tools
           echo "::set-env name=WORKDIR_SH23::$(pwd)"
           
       - name: import gpg keys
