@@ -9,7 +9,7 @@ env:
   DIST: pages
   MORE: '--keepunusednewfiles --silent --noguessgpgtty'
   LOCAL_KEY: true
-  DEBUG: true
+  DEBUG: false
   PUB_KEY: pub.key
   PRIV_KEY: priv.key
   KEY_ID: 7E1D5D0188BFB69346C6332659CEA38B2E8E4EBE
