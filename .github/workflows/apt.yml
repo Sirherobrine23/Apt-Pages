@@ -31,6 +31,7 @@ jobs:
       - name: import gpg keys
         if: env.LOCAL_KEY == 'true'
         run: |
+          export GPG_TTY=$(tty)
           gpg --passphrase "${{ secrets.PASSWORD }}" --no-tty --batch --yes --import "keys/$PRIV_KEY"
           gpg --import "keys/$PUB_KEY"
           gpg --export-secret-keys --passphrase "${{ secrets.PASSWORD }}" --no-tty --batch --yes | gpg2 --passphrase "${{ secrets.PASSWORD }}" --no-tty --batch --yes --import -
