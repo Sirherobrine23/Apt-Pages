@@ -17,6 +17,7 @@ env:
 jobs:
   reprepro:
     runs-on: ubuntu-18.04
+    container: debian:stable
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
       - name: Checkout
