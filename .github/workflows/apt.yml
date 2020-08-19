@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  DIST: sh23
+  DIST: pages
   MORE: --keepunusednewfiles
   LOCAL_KEY: 'true'
   PUB_KEY: pub.key
@@ -42,7 +42,10 @@ jobs:
 
       - name: Reprepro
         run: |
-          bash start.sh
+          reprepro $MORE --verbose --basedir "$WORKDIR_SH23/public" -C main includedeb $DIST package/main/*.deb &>> $WORKDIR_SH23/public/Reprepro_log.txt
+          reprepro $MORE --verbose --basedir "$WORKDIR_SH23/public" -C contrib includedeb $DIST package/contrib/*.deb &>> $WORKDIR_SH23/public/Reprepro_log.txt
+          reprepro $MORE --verbose --basedir "$WORKDIR_SH23/public" -C non-free includedeb $DIST package/non-free/*.deb &>> $WORKDIR_SH23/public/Reprepro_log.txt
+          gpg --armor --output "$WORKDIR_SH23/public/pub.key" --export $KEY_ID
 
       - name: removendo algumas pastas
         run: |
