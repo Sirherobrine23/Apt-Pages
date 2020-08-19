@@ -24,7 +24,7 @@ jobs:
       - name: Install reprepro and OpenGPG
         run : |
           sudo apt update -qq
-          sudo DEBIAN_FRONTEND=noninteractive apt install -y reprepro* rng-tools
+          sudo DEBIAN_FRONTEND=noninteractive apt install -y reprepro* rng-tools* gpg*
           echo "::set-env name=WORKDIR_SH23::$(pwd)"
           echo "$WORKDIR_SH23"
 
@@ -53,10 +53,7 @@ jobs:
           cd public/
           sudo rm -r db/
           sudo rm -r conf/
-          echo "<html>" > index.html
-          bash index.sh
-          echo "</html>" >> index.html
-
+          
       - name: Deploy repository
         uses: peaceiris/actions-gh-pages@v3
         with:
