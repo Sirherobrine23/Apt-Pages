@@ -8,7 +8,7 @@ on:
 env:
   DIST: pages
   MORE: --keepunusednewfiles
-  LOCAL_KEY: 'false'
+  LOCAL_KEY: 'true'
   PUB_KEY: pub.key
   PRIV_KEY: priv.key
   KEY_ID: 7E1D5D0188BFB69346C6332659CEA38B2E8E4EBE
@@ -42,11 +42,11 @@ jobs:
 
       - name: Reprepro
         run: |
-          # reprepro $MORE --verbose --basedir "$WORKDIR_SH23/public" -C main includedeb $DIST package/main/*.deb &>> $WORKDIR_SH23/public/Reprepro_log.txt
-          # reprepro $MORE --verbose --basedir "$WORKDIR_SH23/public" -C contrib includedeb $DIST package/contrib/*.deb &>> $WORKDIR_SH23/public/Reprepro_log.txt
-          # reprepro $MORE --verbose --basedir "$WORKDIR_SH23/public" -C non-free includedeb $DIST package/non-free/*.deb &>> $WORKDIR_SH23/public/Reprepro_log.txt
-          # gpg --armor --output "$WORKDIR_SH23/public/pub.key" --export $KEY_ID
-          bash start.sh
+          reprepro $MORE --verbose --basedir "$WORKDIR_SH23/public" -C main includedeb $DIST "$WORKDIR_SH23/package/main/*.deb" &>> $WORKDIR_SH23/public/Reprepro_log.txt
+          reprepro $MORE --verbose --basedir "$WORKDIR_SH23/public" -C contrib includedeb $DIST "$WORKDIR_SH23/package/contrib/*.deb" &>> $WORKDIR_SH23/public/Reprepro_log.txt
+          reprepro $MORE --verbose --basedir "$WORKDIR_SH23/public" -C non-free includedeb $DIST "$WORKDIR_SH23/package/non-free/*.deb" &>> $WORKDIR_SH23/public/Reprepro_log.txt
+          gpg --armor --output "$WORKDIR_SH23/public/pub.key" --export $KEY_ID
+          # bash start.sh
 
       - name: removendo algumas pastas
         run: |
