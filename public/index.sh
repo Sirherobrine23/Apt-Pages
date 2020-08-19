@@ -1,4 +1,4 @@
 #!/bin/bash
 for a in $(find .);do
- echo "<a href="${a}"> ${a} </a>" >> 
+ echo "<a href="${a}"> ${a} </a>" >> index.html
 done
