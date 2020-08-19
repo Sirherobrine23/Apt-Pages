@@ -48,9 +48,9 @@ jobs:
       - name: Reprepro
         run: |
           cd public/
-          sudo reprepro $MORE --verbose -C main includedeb $DIST $WORKDIR_SH23/package/main/*.deb
-          sudo reprepro $MORE --verbose -C contrib includedeb $DIST $WORKDIR_SH23/package/contrib/*.deb
-          sudo reprepro $MORE --verbose -C non-free includedeb $DIST $WORKDIR_SH23/package/non-free/*.deb
+          reprepro $MORE --verbose -C main includedeb $DIST $WORKDIR_SH23/package/main/*.deb
+          reprepro $MORE --verbose -C contrib includedeb $DIST $WORKDIR_SH23/package/contrib/*.deb
+          reprepro $MORE --verbose -C non-free includedeb $DIST $WORKDIR_SH23/package/non-free/*.deb
           gpg --armor --output "pub.key" --export $KEY_ID
 
       - name: removendo algumas pastas
