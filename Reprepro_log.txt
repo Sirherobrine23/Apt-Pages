@@ -1,9 +1,7 @@
-/home/runner/work/Apt-repository-with-Gh-pages/Apt-repository-with-Gh-pages/public/conf/options:1: Ignoring too long (or incomplete) line.
 Error 2 opening package/main/*.deb: No such file or directory
 There have been errors!
-/home/runner/work/Apt-repository-with-Gh-pages/Apt-repository-with-Gh-pages/public/conf/options:1: Ignoring too long (or incomplete) line.
 gpgme gave error Pinentry:32870:  Inappropriate ioctl for device
-ERROR: Could not finish exporting 'sh23'!
+ERROR: Could not finish exporting 'pages'!
 This means that from outside your repository will still look like before (and
 should still work if this old state worked), but the changes intended with this
 call will not be visible until you call export directly (via reprepro export)
@@ -12,6 +10,5 @@ thus creates a new export of that file, but even changes to other parts of the
 same distribution will not!
 There have been errors!
 Exporting indices...
-/home/runner/work/Apt-repository-with-Gh-pages/Apt-repository-with-Gh-pages/public/conf/options:1: Ignoring too long (or incomplete) line.
 Error 2 opening package/non-free/*.deb: No such file or directory
 There have been errors!
