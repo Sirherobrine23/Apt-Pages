@@ -17,7 +17,7 @@ env:
 jobs:
   reprepro:
     runs-on: ubuntu-18.04
-    container: debian:stable
+    container: debian:buster
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
       - name: Checkout
@@ -26,7 +26,7 @@ jobs:
       - name: Install reprepro and OpenGPG
         run : |
           apt update -qq
-          DEBIAN_FRONTEND=noninteractive apt install -y reprepro rng-tools
+          DEBIAN_FRONTEND=noninteractive apt install -y reprepro gnupg*
           echo "::set-env name=WORKDIR_SH23::$(pwd)"
           
       - name: import gpg keys
