@@ -35,6 +35,10 @@ jobs:
           echo "" 
           gpg --import "$WORKDIR_SH23/keys/$PUB_KEY"
           echo "default-key $KEY_ID" >> ~/.gnupg/gpg.conf
+          echo use-agent >> ~/.gnupg/gpg.conf
+          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+          echo "allow-loopback-pinentry" ~/.gnupg/gpg-agent.conf
+          echo RELOADAGENT | gpg-connect-agent
 
       - name: GPG key create
         uses: Sirherobrine23/ssh-connect-for-apt@main
