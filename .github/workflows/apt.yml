@@ -7,8 +7,9 @@ on:
 
 env:
   DIST: pages
-  MORE: --keepunusednewfiles
-  LOCAL_KEY: 'true'
+  MORE: '--keepunusednewfiles --silent --noguessgpgtty'
+  LOCAL_KEY: true
+  DEBUG: true
   PUB_KEY: pub.key
   PRIV_KEY: priv.key
   KEY_ID: 7E1D5D0188BFB69346C6332659CEA38B2E8E4EBE
@@ -24,13 +25,9 @@ jobs:
       - name: Install reprepro and OpenGPG
         run : |
           sudo apt update -qq
-          sudo DEBIAN_FRONTEND=noninteractive apt install -y reprepro* rng-tools gpg*
+          sudo DEBIAN_FRONTEND=noninteractive apt install -y reprepro rng-tools gpg*
           echo "::set-env name=WORKDIR_SH23::$(pwd)"
           
-      - name: GPG key create
-        uses: Sirherobrine23/ssh-connect-for-apt@main
-        if: env.LOCAL_KEY == 'false'
-
       - name: import gpg keys
         if: env.LOCAL_KEY == 'true'
         run: |
@@ -39,14 +36,10 @@ jobs:
           gpg --import "$WORKDIR_SH23/keys/$PUB_KEY"
           echo "default-key $KEY_ID" >> ~/.gnupg/gpg.conf
 
-      - name: list publish_dir
-        run: |
-          echo "seu diretorio de trabalho é no: $WORKDIR_SH23"
-          ls "$WORKDIR_SH23/"
-          ls "$WORKDIR_SH23/package/"
-          ls "$WORKDIR_SH23/package/main/"
-          ls "$WORKDIR_SH23/package/contrib/"
-          ls "$WORKDIR_SH23/package/non-free/"
+      - name: GPG key create
+        uses: Sirherobrine23/ssh-connect-for-apt@main
+        if: env.DEBUG == 'true'
+        #if: env.LOCAL_KEY == 'false'
 
       - name: Reprepro
         run: |
