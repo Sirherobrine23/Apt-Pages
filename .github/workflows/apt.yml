@@ -43,9 +43,9 @@ jobs:
       - name: Reprepro
         run: |
           cd public/
-          reprepro $MORE --verbose -C main includedeb $DIST "../package/main/*.deb"
-          reprepro $MORE --verbose -C contrib includedeb $DIST "../package/contrib/*.deb"
-          reprepro $MORE --verbose -C non-free includedeb $DIST "../package/non-free/*.deb"
+          reprepro $MORE --verbose -C main includedeb $DIST "${{ env.WORKDIR_SH23 }}/package/main/*.deb"
+          reprepro $MORE --verbose -C contrib includedeb $DIST "${{ env.WORKDIR_SH23 }}/package/contrib/*.deb"
+          reprepro $MORE --verbose -C non-free includedeb $DIST "${{ env.WORKDIR_SH23 }}/package/non-free/*.deb"
           gpg --armor --output "pub.key" --export $KEY_ID
           # bash start.sh
 
