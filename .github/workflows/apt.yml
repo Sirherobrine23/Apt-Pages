@@ -40,12 +40,18 @@ jobs:
           gpg --import "$WORKDIR_SH23/keys/$PUB_KEY"
           echo "default-key $KEY_ID" >> ~/.gnupg/gpg.conf
 
+      - name: list publish_dir
+        run: |
+          ls "$WORKDIR_SH23/package/main/*.deb"
+          ls "$WORKDIR_SH23/package/contrib/*.deb"
+          ls "$WORKDIR_SH23/package/non-free/*.deb"
+
       - name: Reprepro
         run: |
           cd public/
-          sudo reprepro $MORE --verbose -C main includedeb $DIST "${{ env.WORKDIR_SH23 }}/package/main/*.deb"
-          sudo reprepro $MORE --verbose -C contrib includedeb $DIST "${{ env.WORKDIR_SH23 }}/package/contrib/*.deb"
-          sudo reprepro $MORE --verbose -C non-free includedeb $DIST "${{ env.WORKDIR_SH23 }}/package/non-free/*.deb"
+          sudo reprepro $MORE --verbose -C main includedeb $DIST "$WORKDIR_SH23/package/main/*.deb"
+          sudo reprepro $MORE --verbose -C contrib includedeb $DIST "$WORKDIR_SH23/package/contrib/*.deb"
+          sudo reprepro $MORE --verbose -C non-free includedeb $DIST "$WORKDIR_SH23/package/non-free/*.deb"
           gpg --armor --output "pub.key" --export $KEY_ID
           # bash start.sh
 
