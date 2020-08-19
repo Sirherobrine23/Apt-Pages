@@ -53,6 +53,11 @@ jobs:
           cd public/
           sudo rm -r db/
           sudo rm -r conf/
+          echo "<html>" > index.html
+          for a in $(find .);do
+            echo "<a href="${a}"> ${a} </a>" >> 
+          done
+          echo "</html>" >> index.html
 
       - name: Deploy repository
         uses: peaceiris/actions-gh-pages@v3
