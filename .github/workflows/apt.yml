@@ -9,7 +9,6 @@ env:
   DIST: pages
   MORE: '--keepunusednewfiles --silent --noguessgpgtty'
   LOCAL_KEY: true
-  DEBUG: false
   PUB_KEY: pub.key
   PRIV_KEY: priv.key
   KEY_ID: 7E1D5D0188BFB69346C6332659CEA38B2E8E4EBE
@@ -34,8 +33,7 @@ jobs:
         run: |
           gpg --passphrase "${{ secrets.PASSWORD }}" --no-tty --batch --yes --import "keys/$PRIV_KEY"
           gpg --import "keys/$PUB_KEY"
-          echo "gpg2"
-          gpg --export-secret-keys | gpg2 --import -
+          gpg --export-secret-keys --passphrase "${{ secrets.PASSWORD }}" --no-tty --batch --yes | gpg2 --passphrase "${{ secrets.PASSWORD }}" --no-tty --batch --yes --import -
           echo "default-key $KEY_ID" >> ~/.gnupg/gpg.conf
           echo use-agent >> ~/.gnupg/gpg.conf
 
