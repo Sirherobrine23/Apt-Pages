@@ -54,9 +54,7 @@ jobs:
           sudo rm -r db/
           sudo rm -r conf/
           echo "<html>" > index.html
-          for a in $(find .);do
-            echo "<a href="${a}"> ${a} </a>" >> 
-          done
+          bash index.sh
           echo "</html>" >> index.html
 
       - name: Deploy repository
