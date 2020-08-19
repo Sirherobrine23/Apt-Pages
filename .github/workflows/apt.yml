@@ -42,9 +42,15 @@ jobs:
       - name: list publish_dir
         run: |
           echo "seu diretorio de trabalho é no: $WORKDIR_SH23"
-          ls "$WORKDIR_SH23/package/main/*.deb"
-          ls "$WORKDIR_SH23/package/contrib/*.deb"
-          ls "$WORKDIR_SH23/package/non-free/*.deb"
+          ls "$WORKDIR_SH23/
+          echo
+          ls "$WORKDIR_SH23/package/
+          echo
+          ls "$WORKDIR_SH23/package/main/
+          echo
+          ls "$WORKDIR_SH23/package/contrib/
+          echo
+          ls "$WORKDIR_SH23/package/non-free/
 
       - name: Reprepro
         run: |
