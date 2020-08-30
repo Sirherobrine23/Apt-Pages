@@ -6,60 +6,34 @@ on:
       - main
 
 env:
-  DIST: pages
-  MORE: '--keepunusednewfiles --silent --noguessgpgtty'
-  LOCAL_KEY: true
-  PUB_KEY: pub.key
-  PRIV_KEY: priv.key
-  KEY_ID: 7E1D5D0188BFB69346C6332659CEA38B2E8E4EBE
-
+  DIST: 'pages'
+  DEBUG: 'false'
+  PUB_KEY: 'pub.key'
+  PRIV_KEY: 'priv.key'
+  KEY_ID: '908144B521689A950CCB5E801347937B188623BC'
+  CONF_FILE: aptly.conf
+  URL_REPO: 'https://sirherobrine23.github.io/Apt-Pages'
+  pass: "${{ secrets.PASSWORD }}"
+  
 jobs:
   reprepro:
     runs-on: ubuntu-18.04
-    container: debian:buster
+    container: sirherobrine23/apt_pages:latest
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@v2.3.2
 
-      - name: Install reprepro and OpenGPG
-        run : |
-          apt update -qq
-          DEBIAN_FRONTEND=noninteractive apt install -y reprepro gnupg*
-          echo "::set-env name=WORKDIR_SH23::$(pwd)"
-          
-      - name: import gpg keys
-        if: env.LOCAL_KEY == 'true'
-        run: |
-          export GPG_TTY=$(tty)
-          gpg --passphrase "${{ secrets.PASSWORD }}" --no-tty --batch --yes --import "keys/$PRIV_KEY"
-          gpg --import "keys/$PUB_KEY"
-          gpg2 --passphrase "${{ secrets.PASSWORD }}" --no-tty --batch --yes --import "keys/$PRIV_KEY"
-          gpg2 --import "keys/$PUB_KEY"
-          echo "default-key $KEY_ID" >> ~/.gnupg/gpg.conf
-          echo use-agent >> ~/.gnupg/gpg.conf
-
-      - name: GPG key create
+      - name: tmate - ssh
+        if: env.DEBUG == 'true' || contains(github.event.action, 'erro no')
         uses: Sirherobrine23/ssh-connect-for-apt@main
-        if: env.DEBUG == 'true'
-        #if: env.LOCAL_KEY == 'false'
 
-      - name: Reprepro
+      - name: Reprepro to build
         run: |
-          cd public/
-          reprepro $MORE --verbose -C main includedeb $DIST $WORKDIR_SH23/package/main/*.deb
-          reprepro $MORE --verbose -C contrib includedeb $DIST $WORKDIR_SH23/package/contrib/*.deb
-          reprepro $MORE --verbose -C non-free includedeb $DIST $WORKDIR_SH23/package/non-free/*.deb
-          gpg --armor --output "pub.key" --export $KEY_ID
+          publish
 
-      - name: removendo algumas pastas
-        run: |
-          cd public/
-          sudo rm -r db/
-          sudo rm -r conf/
-          
-      - name: Deploy repository
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3.7.0-8
         with:
-          github_token: ${{ secrets.SECRETS }}
-          publish_dir: /public
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: /public/
