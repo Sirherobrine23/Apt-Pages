@@ -1,0 +1,14 @@
+Package: example-helloworld
+Priority: optional
+Section: main
+Maintainer: Mark Lopez <m@silvenga.com>
+Architecture: amd64
+Version: 1.0.0.0
+Filename: pool/main/e/example-helloworld/example-helloworld_1.0.0.0_amd64.deb
+Size: 776
+MD5sum: 6b78f729f0756f8f139efdd2007dfdd0
+SHA1: ae6c3ea080e99c94b052db52476433ab01ec4580
+SHA256: 02905c29aa3711f1cd944ec6fdefedec99cd3f40cbf69f010403a4549c913b89
+SHA512: 599dd9529da9214ffe898aae0112cf537136e01d5ee1c20ff6660f69b16f470f5f7ec8861a50305dad7c9c696450fe1e80bdfc696885c85bf34485e2db87f467
+Description: A sample package containing the script hello-world.sh. 
+

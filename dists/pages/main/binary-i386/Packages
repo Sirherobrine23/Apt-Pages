@@ -1,0 +1,14 @@
+Package: example-helloworld
+Priority: optional
+Section: main
+Maintainer: Mark Lopez <m@silvenga.com>
+Architecture: i386
+Version: 1.0.0.0
+Filename: pool/main/e/example-helloworld/example-helloworld_1.0.0.0_i386.deb
+Size: 778
+MD5sum: ec645a6f3fe65b3648f3b332d4bca1a9
+SHA1: 5be8e0954d7e048b2e94b1ce5d91df1bfe2729a5
+SHA256: 35a67716dd72454b1cc55b23c5eae0fe7bcff69e9b8e439e17e86cd19d38756b
+SHA512: 80d62216465b31eaf35a839fabcba0ae934fc8144bdf86ee8f6822e4e3c23b67cb4c29e00704e420fbbfd4d0f79567ecb84926687ba80fea57b016e883f5e0c7
+Description: A sample package containing the script hello-world.sh. 
+
