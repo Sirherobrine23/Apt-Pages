@@ -1,23 +1,20 @@
 name: APT REPO in Pages
 on:
   push:
-    branches:
-      - master
-      - main
 
 env:
-  DIST: 'pages'
-  DEBUG: 'false'
-  PUB_KEY: 'pub.key'
-  PRIV_KEY: 'priv.key'
-  KEY_ID: '908144B521689A950CCB5E801347937B188623BC'
+  DIST: 'pages' # Nome da distribuição pode ser qual nome
+  DEBUG: 'false' # Deixa false
+  PUB_KEY: ''  # # Nome do arquivo da chave Publica
+  PRIV_KEY: '' # Nome do arquivo da chave Privada
+  KEY_ID: '' # A id publica do par de chaves
   CONF_FILE: aptly.conf
-  URL_REPO: 'https://sirherobrine23.github.io/Apt-Pages'
-  pass: "${{ secrets.PASSWORD }}"
+  URL_REPO: '' # Caso tenha um dominio personalizado use coloque o dominio dele aqui se não coloca o que o github deu
+  pass: "" # senha do arquivos das keys
   
 jobs:
   reprepro:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     container: sirherobrine23/apt_pages:latest
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
@@ -37,3 +34,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: /public/
+          cname: ${{ env.URL_REPO }}
