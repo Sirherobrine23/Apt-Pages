@@ -10,8 +10,6 @@ jobs:
     - name: Apt PUblish
       uses: Sirherobrine23/apt-pages-repo-actions@main
       with:
-        KEY_ID: ''
-        URL_REPO: "https://${{ github.owner }}.github.io/${{ github.repository }}"
         PASS: "${{ secrets.PASSWORD }}"
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3.7.0-8
