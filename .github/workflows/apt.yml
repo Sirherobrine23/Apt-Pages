@@ -1,37 +1,20 @@
-name: APT REPO in Pages
-on:
-  push:
-
-env:
-  DIST: 'pages' # Nome da distribuição pode ser qual nome
-  DEBUG: 'false' # Deixa false
-  PUB_KEY: ''  # # Nome do arquivo da chave Publica
-  PRIV_KEY: '' # Nome do arquivo da chave Privada
-  KEY_ID: '' # A id publica do par de chaves
-  CONF_FILE: aptly.conf
-  URL_REPO: '' # Caso tenha um dominio personalizado use coloque o dominio dele aqui se não coloca o que o github deu
-  pass: "" # senha do arquivos das keys
-  
+name: Apt Pages Build
+on: [push]
 jobs:
-  reprepro:
+  repository:
     runs-on: ubuntu-latest
-    container: sirherobrine23/apt_pages:latest
-    if: github.event.repository.owner.id == github.event.sender.id
+    name: Build
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2.3.2
-
-      - name: tmate - ssh
-        if: env.DEBUG == 'true' || contains(github.event.action, 'erro no')
-        uses: Sirherobrine23/ssh-connect-for-apt@main
-
-      - name: Reprepro to build
-        run: |
-          publish
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3.7.0-8
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: /public/
-          cname: ${{ env.URL_REPO }}
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Apt PUblish
+      uses: Sirherobrine23/apt-pages-repo-actions@main
+      with:
+        KEY_ID: ''
+        URL_REPO: "https://${{ github.owner }}.github.io/${{ github.repository }}"
+        PASS: "${{ secrets.PASSWORD }}"
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3.7.0-8
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: aptly/public/
